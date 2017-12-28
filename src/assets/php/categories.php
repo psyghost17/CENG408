@@ -21,5 +21,23 @@ class category{
 	 		return $row['name'];
 	 	}
 	}
+	public function getCategories($id)
+	{
+		$con=category::connection();
+		$sql="SELECT * FROM categories";
+		$result=$con->query($sql);
+		if($result->num_rows>0)
+	 	{
+	 		while($row=$result->fetch_assoc())
+	 		{
+	 			if($row['id']==$id){
+	 				echo '<option selected value="'.$row['id'].'">'.$row['name'].'</option>';
+	 			}
+	 			else{
+	 				echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+	 			}
+	 		}
+	 	}
+	}
 
 }?>

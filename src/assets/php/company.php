@@ -26,6 +26,33 @@ class company{
 							<td><a href="company-profile.php?company='.$row['id'].'">'.$row['name'].'</a></td>
 							<td>'.company::category($row['category_id']).'</td>
 							<td>'.company::city($row['city_id']).'</td>
+
+						</tr>
+	 			';	
+	 			$i++;
+	 		}
+	 	}
+	}
+	public function getCompanyInformation()
+	{
+		$i=1;
+		$con=company::connection();
+		$sql="SELECT * FROM companies";
+		$result=$con->query($sql);
+		if($result->num_rows>0)
+	 	{
+	 		while($row=$result->fetch_assoc())
+	 		{
+	 			echo '
+	 					<tr>
+							<td>'.$i.'</td>
+							<td>'.$row['logo'].'</td>
+							<td><a href="company-profile.php?company='.$row['id'].'">'.$row['name'].'</a></td>
+							<td>'.company::category($row['category_id']).'</td>
+							<td>'.company::city($row['city_id']).'</td>
+							<td>'.user::get4Company($row['company_admin_id']).'</td>
+							<td>'.user::get4Department($row['company_admin_id']).'</td>
+
 						</tr>
 	 			';	
 	 			$i++;
@@ -42,15 +69,6 @@ class company{
 			return $row;
 	 	}
 	}
-
-
-
-
-
-
-
-
-
 
 	public function category($id)
 	{
@@ -83,6 +101,34 @@ class company{
 			$row=$result->fetch_assoc();
 			return $row;
 		}
+	}
+	public function search()
+	{
+		$con=company::connection();
+		$sql="SELECT * FROM companies";
+		$result=$con->query($sql);
+		if ($result->num_rows>0) {
+
+			$row=$result->fetch_assoc();
+			return $row;
+			# code...
+		}
+
+		}
+
+		public function updateCompany($id){
+		$con=company::connection();
+		$sql='UPDATE companies SET name="'.$company['name'].'", phone="'.$company['phone'].'",address="'.$company['address'].'",city_id="'.$company['city'].'",department="'.$user['department'].'" WHERE id='.$user['id'];
+		$result=$con->query($sql);
+		if($result)
+		{
+			echo '<p class="alert alert-success"><strong>Success...</strong></p>';
+		}
+		else
+		{
+			echo '<p class="alert alert-danger"><strong>Fail...</strong></p>';
+		}
+
 	}
 
 }?>
