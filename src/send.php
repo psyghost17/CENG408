@@ -26,6 +26,14 @@ switch ($flag) {
 	case 'updateUserPassword':
 		user::updatePassword($query);
 	break;
+
+	case 'addCompany':
+		user::addCompany($query);
+	break;
+
+	case 'updateCompany':
+		company::updateCompany($query);
+	break;
 		
 
 
